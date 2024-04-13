@@ -6,8 +6,8 @@
 #ifndef MI_ANCHOR_HPP
 #define MI_ANCHOR_HPP
 
-#include "anchor_exception.hpp"
 #include "builtin.hpp"
+#include "null_pointer_exception.hpp"
 #include "type_aliases.hpp"
 
 namespace mi
@@ -122,7 +122,7 @@ public:
         {
             return *ptr();
         }
-        throw anchor_exception("reference is not engaged");
+        throw null_pointer_exception("reference is not engaged");
     }
 
     /**
@@ -217,7 +217,7 @@ public:
      * @tparam U The type of object the other anchor is managing.
      * @param other The other anchor instance from which the pointer is copied.
      */
-    template<typename U>
+    template <typename U>
     explicit anchor(const anchor<U> &other) noexcept
         : m_ptr(other.ptr())
     {
