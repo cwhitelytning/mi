@@ -187,7 +187,7 @@ public:
      *
      * @param ref A reference to an anchor object from which to create the copy.
      */
-    explicit anchor(const_reference ref)
+    explicit anchor(reference ref)
         : m_ptr(&ref)
     {
     }
