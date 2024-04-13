@@ -60,6 +60,18 @@ template <typename ValueType, typename ArrayType = std::vector<ValueType>>
 class container
 {
 public:
+    /**
+     * @brief Type alias for the value type.
+     *
+     * Defines a member type that enables
+     * the representation of the value type used by the container.
+     *
+     * This type alias is used throughout the container class to refer to the elements
+     * that the container holds, providing a convenient shorthand for the type of these
+     * elements.
+     *
+     * @tparam ValueType The type of elements in the container.
+     */
     using value_type = ValueType;
 
     /**
