@@ -193,6 +193,37 @@ public:
     }
 
     /**
+     * @brief Copy constructor that initializes
+     *        the anchor with another anchor's pointer.
+     *
+     * This constructor creates a new anchor instance by copying the pointer managed by
+     * another anchor instance. It is noexcept as it does not throw exceptions.
+     *
+     * @param other The other anchor instance from which the pointer is copied.
+     */
+    anchor(anchor &other) noexcept
+        : m_ptr(other.ptr())
+    {
+    }
+
+    /**
+     * @brief Templated copy constructor that initializes
+     *        the anchor with a different type.
+     *
+     * This constructor template enables the creation of a new anchor from another anchor
+     * managing a different type. This is particularly useful when converting between
+     * anchor types, provided that U* is convertible to T*.
+     *
+     * @tparam U The type of object the other anchor is managing.
+     * @param other The other anchor instance from which the pointer is copied.
+     */
+    template<typename U>
+    explicit anchor(const anchor<U> &other) noexcept
+        : m_ptr(other.ptr())
+    {
+    }
+
+    /**
      * @brief Move assignment operator.
      *
      * Transfers ownership of the managed resource from other to this object,
