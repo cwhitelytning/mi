@@ -20,7 +20,9 @@ dynamic_module::unload()
 std::string
 dynamic_module::classname() const
 {
-    return interpolate_string("{}::{}", extension::classname(), info().name);
+    return format::interpolate_string(std::string_view("{}::{}"),
+                                      extension::classname(),
+                                      info().name);
 }
 
 const module_info &

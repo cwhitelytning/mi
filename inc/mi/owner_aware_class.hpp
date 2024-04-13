@@ -25,18 +25,19 @@ namespace mi::mixin
  * to manage resources and enforce ownership policies
  * within complex systems.
  *
- * @tparam T The type of the owned object.
+ * @tparam OwnerType The type of the owned object.
  * @tparam AnchorType A type used as an anchor for additional ownership mechanisms,
- *                    defaults to anchor<T>. This parameter allows customizing the
- *                    ownership behavior, for instance, facilitating unique ownership
- *                    or supporting shared ownership depending on the anchor's
- *                    implementation.
+ *                    defaults to anchor<T>.
+ *
+ *                    This parameter allows customizing the ownership behavior,
+ *                    for instance, facilitating unique ownership or supporting
+ *                    shared ownership depending on the anchor's implementation.
  *
  * The class is part of an architecture that strictly forbids the copying and moving
  * of owning objects to prevent any unauthorized or accidental ownership transfers,
  * thereby enhancing the security and reliability of resource management.
  */
-template <typename T, typename AnchorType = const anchor<T>>
+template <typename OwnerType, typename AnchorType = const anchor<OwnerType>>
 class owner_aware_class : private noncopyable, private nonmovable
 {
 public:
@@ -64,16 +65,17 @@ public:
      * @brief Constructs the owner_aware_class
      *        with parameters forwarded to the owner’s constructor.
      *
-     * This constructor template allows for the creation of the owned object
-     * with arbitrary arguments, forwarding them to the constructor of the
-     * owner_type. This provides flexibility in initializing the owned object
-     * managed by this owner_aware_class.
+     * This constructor template allows for the creation of the owned object with
+     * arbitrary arguments, forwarding them to the constructor of the owner_type.
+     *
+     * This provides flexibility in initializing
+     * the owned object managed by this owner_aware_class.
      *
      * @tparam Args Variadic template parameter pack
      *              for constructor arguments of the owned object.
      *
-     * @param args Arguments to be forwarded to the constructor
-     *             of the owned object.
+     * @param args Arguments to be forwarded
+     *             to the constructor of the owned object.
      */
     template <typename... Args>
     explicit owner_aware_class(Args &&...args)

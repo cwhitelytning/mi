@@ -2,6 +2,7 @@
 
 #ifdef MI_OS_UNIX_LIKE
 #    include <dlfcn.h>
+#    include <mi/str.hpp>
 #endif
 
 using namespace mi;
@@ -143,6 +144,6 @@ dl::last_error_message()
     return os::last_error_message();
 
 #elif defined MI_OS_UNIX_LIKE
-    return cstring_to_string(dlerror());
+    return str::cstring_to_string(dlerror());
 #endif
 }

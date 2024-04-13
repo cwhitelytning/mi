@@ -6,8 +6,7 @@
 #ifndef MI_RUNTIME_EXCEPTION_HPP
 #define MI_RUNTIME_EXCEPTION_HPP
 
-#include "str.hpp"
-#include "unicode.hpp"
+#include "format.hpp"
 #include <exception>
 
 /**
@@ -56,16 +55,16 @@ public:
      * the provided arguments before storing it internally.
      *
      * @tparam Args Variadic template arguments for the message formatting.
-     * @param message The base message string that defines the format.
-     *                This should include placeholders matching
-     *                the formatting arguments.
+     * @param format The base message string that defines the format.
+     *               This should include placeholders matching
+     *               the formatting arguments.
 
      * @param args Arguments to be formatted into the base message string
      *             according to standard string formatting rules.
      */
     template <typename... Args>
-    explicit runtime_exception(std::string_view message, Args &&...args)
-        : m_message(interpolate_string(message, std::forward<Args>(args)...))
+    explicit runtime_exception(std::string_view format, Args &&...args)
+        : m_message(format::interpolate_string(format, std::forward<Args>(args)...))
     {
     }
 

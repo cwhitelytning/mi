@@ -42,7 +42,7 @@ os::error_message(error_code_t code)
 
     return message;
 #elif defined(MI_OS_UNIX_LIKE)
-    return cstring_to_string(std::strerror(code));
+    return str::cstring_to_string(std::strerror(code));
 #endif
 }
 
