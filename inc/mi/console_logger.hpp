@@ -59,7 +59,7 @@ public:
      *                encapsulated in a ustring_view.
      */
     void
-    log(const extension &sender, logger_level level, ustring_view message) override;
+    log(const sender_type &sender, logger_level level, ustring_view message) override;
 };
 
 } // namespace mi

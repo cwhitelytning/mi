@@ -1,10 +1,10 @@
 /**
  * @file base_logger.hpp
- * @brief Declaration of the base_logger class within the mi namespace.
+ * @brief Base logger class template for logging mechanisms.
  *
- * This file contains the base_logger class template which is a part of the
- * logging system. It provides the interface for logging messages with
- * different levels of importance.
+ * This file contains the definition of the base_logger class template,
+ * which serves as the foundation for all logging mechanisms within the
+ * mi namespace. It extends the functionality of the extension class.
  */
 
 #ifndef MI_BASE_LOGGER_HPP
@@ -12,32 +12,39 @@
 
 #include "extension.hpp"
 #include "logger_level_flags.hpp"
-#include <string_view>
 
 namespace mi
 {
 
 /**
- * @class base_logger
+ * @class base_logger<T>
  * @brief Abstract base class for loggers.
  *
- * base_logger is a template class that defines the interface for logger
- * classes. It is inherited from the extension class. It provides methods to
- * get and set logger flags and requires the implementation of the log method.
+ * The base_logger class template is designed to be the base class for
+ * all loggers, providing common interface and functionality for logging.
+ * It is an abstract class and expects derived classes to implement the
+ * log method.
  *
- * @tparam T The type of the sender that will be logged.
+ * @tparam SenderType Type of the sender object associated with the log messages.
  */
-template <typename T>
+template <typename SenderType>
 class base_logger : public extension
 {
 public:
     /**
-     * @brief Constructs a new base logger object.
+     * @typedef sender_type
+     * @brief Defines the type of the sender object associated with the log messages.
+     */
+    using sender_type = SenderType;
+
+    /**
+     * @brief Constructs a new base_logger object.
      *
-     * @param owner The owner of this logger instance.
-     * @param flags Initial logging level flags.
+     * Initializes a new instance of the base_logger class with a reference
+     * to an owner and initial logger level flags.
      *
-     * @tparam OwnerType The type of the owner.
+     * @param owner An rvalue reference to the owner of the logger instance.
+     * @param flags Initial logging level flags to be applied.
      */
     template <typename OwnerType>
     explicit base_logger(OwnerType &&owner, logger_level_flags flags)
@@ -47,8 +54,12 @@ public:
     }
 
     /**
-     * @brief Gets the current logger level flags.
-     * @return The current logger level flags.
+     * @brief Retrieves the current logging level flags.
+     *
+     * This method is marked as [[nodiscard]] to indicate the compiler that
+     * the return value should not be ignored when calling this method.
+     *
+     * @return The current logger_level_flags.
      */
     [[nodiscard]]
     logger_level_flags
@@ -58,8 +69,11 @@ public:
     }
 
     /**
-     * @brief Sets the logger level flags.
-     * @param flags New logger level flags to be set.
+     * @brief Sets the logging level flags.
+     *
+     * Allows changing the logging level flags for this logger instance.
+     *
+     * @param flags The new logger_level_flags to set.
      */
     void
     flags(logger_level_flags flags) noexcept
@@ -68,21 +82,20 @@ public:
     }
 
     /**
-     * @brief Pure virtual function for logging a message.
+     * @brief Logs a message.
      *
-     * This function needs to be implemented to handle
-     * the logging of messages with a specific logger level.
+     * Pure virtual function that logs a message with the given sender and level.
+     * Derived classes need to implement this function to handle the logging.
      *
-     * @param sender The sender of the message.
-     *               The type is defined by the template parameter T.
-     * @param level The importance level of the message.
+     * @param sender The sender of the log message.
+     * @param level The severity level of the log message.
      * @param message The message to log.
      */
     virtual void
-    log(const T &sender, logger_level level, ustring_view message) = 0;
+    log(const sender_type &sender, logger_level level, ustring_view message) = 0;
 
 private:
-    logger_level_flags m_flags; ///< Flags indicating the logging level.
+    logger_level_flags m_flags; ///< Logging level flags.
 };
 
 } // namespace mi
