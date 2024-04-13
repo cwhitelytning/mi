@@ -26,7 +26,7 @@ namespace mi::dl
  * This class provides functionalities to load and unload dynamic libraries
  * and to resolve symbols to function pointers within these libraries.
  */
-class dynamic_library : private noncopyable, private nonmovable
+class dynamic_library : private mixin::noncopyable, private mixin::nonmovable
 {
 public:
     /**

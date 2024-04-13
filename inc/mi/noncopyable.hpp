@@ -6,7 +6,7 @@
 #ifndef MI_NONCOPYABLE_HPP
 #define MI_NONCOPYABLE_HPP
 
-namespace mi
+namespace mi::mixin
 {
 
 /**
@@ -69,6 +69,6 @@ public:
     virtual ~noncopyable() = default;
 };
 
-} // namespace mi
+} // namespace mi::mixin
 
 #endif /* MI_NONCOPYABLE_HPP */

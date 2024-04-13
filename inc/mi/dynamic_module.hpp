@@ -25,7 +25,7 @@ namespace mi
  * information about the module.
  */
 class dynamic_module : public extension,
-                       protected logger_aware_class<extension_logger>,
+                       protected mixin::logger_aware_class<extension_logger>,
                        public dl::dynamic_library
 {
 public:

@@ -49,7 +49,8 @@ template <typename ElementType,
           typename ValueType = std::unique_ptr<ElementType>,
           typename ArrayType = std::vector<ValueType>>
 
-class unique_container : public container<ValueType, ArrayType>, private noncopyable
+class unique_container : public container<ValueType, ArrayType>,
+                         private mixin::noncopyable
 {
 public:
     /**

@@ -26,7 +26,7 @@ namespace mi
  * owner_aware_class functionalities, making them accessible only within
  * extension or derived classes.
  */
-class extension : protected owner_aware_class<const base_loader<extension>>
+class extension : protected mixin::owner_aware_class<const base_loader<extension>>
 {
 public:
     /**

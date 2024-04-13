@@ -1,6 +1,6 @@
 /**
  * @file owner_aware_class.hpp
- * @brief A header file for the OwnerAwareClass within the mi namespace.
+ * @brief A header file for the owner_aware_class within the mi namespace.
  */
 
 #ifndef MI_OWNER_AWARE_CLASS_HPP
@@ -10,17 +10,19 @@
 #include "noncopyable.hpp"
 #include "nonmovable.hpp"
 
-namespace mi
+namespace mi::mixin
 {
 
 /**
  * @class owner_aware_class
  * @brief A class template that provides ownership semantics.
  *
- * The owner_aware_class encapsulates an owning object, offering a strict
- * ownership model while prohibiting copy and move semantics to ensure the
- * integrity and safety of ownership. This class is a component of a broader
- * mechanism designed to manage resources and enforce ownership policies
+ * The owner_aware_class encapsulates an owning object,
+ * offering a strict ownership model while prohibiting copy
+ * and move semantics to ensure the integrity and safety of ownership.
+ *
+ * This class is a component of a broader mechanism designed
+ * to manage resources and enforce ownership policies
  * within complex systems.
  *
  * @tparam T The type of the owned object.
@@ -83,6 +85,6 @@ private:
     AnchorType m_owner; ///< The owner object, encapsulating the ownership.
 };
 
-} // namespace mi
+} // namespace mi::mixin
 
 #endif /* MI_OWNER_AWARE_CLASS_HPP */

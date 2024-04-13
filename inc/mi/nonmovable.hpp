@@ -8,7 +8,7 @@
 #ifndef MI_NONMOVABLE_HPP
 #define MI_NONMOVABLE_HPP
 
-namespace mi
+namespace mi::mixin
 {
 
 /**
@@ -78,6 +78,6 @@ public:
     virtual ~nonmovable() = default;
 };
 
-} // namespace mi
+} // namespace mi::mixin
 
 #endif /* MI_NONMOVABLE_HPP */

@@ -10,7 +10,7 @@
 #include "noncopyable.hpp"
 #include "nonmovable.hpp"
 
-namespace mi
+namespace mi::mixin
 {
 
 /**
@@ -112,6 +112,6 @@ private:
     AnchorType m_logger;
 };
 
-} // namespace mi
+} // namespace mi::mixin
 
 #endif /* MI_LOGGER_AWARE_CLASS_HPP */
