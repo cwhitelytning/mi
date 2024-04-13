@@ -1,5 +1,5 @@
 /**
- * @file MI_TYPE_ALIASES.hpp
+ * @file type_aliases.hpp
  * @brief Defines standard type aliases used throughout the mi namespace.
  *
  * This file provides template structures that define standard type aliases such as
