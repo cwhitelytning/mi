@@ -20,7 +20,7 @@
 
 #include "container.hpp"
 #include "noncopyable.hpp"
-#include "null_pointer_exception.hpp"
+#include "null_pointer_error.hpp"
 
 namespace mi
 {
@@ -193,7 +193,7 @@ protected:
     {
         if (is_value_null(index))
         {
-            throw null_pointer_exception("no value assigned (index: {})", index);
+            throw null_pointer_error("no value assigned (index: {})", index);
         }
     }
 

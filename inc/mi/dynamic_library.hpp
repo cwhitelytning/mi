@@ -9,7 +9,7 @@
 #define MI_DYNAMIC_LIBRARY_HPP
 
 #include "builtin.hpp"
-#include "dynamic_library_exception.hpp"
+#include "dynamic_library_error.hpp"
 #include "exception.hpp"
 #include "fs.hpp"
 #include "noncopyable.hpp"
@@ -142,10 +142,10 @@ public:
         {
             return std::invoke(*func, std::forward<Args>(args)...);
         }
-        throw dynamic_library_exception("no function from dynamic library "
-                                        "(function: {}, path: {})",
-                                        name,
-                                        m_path);
+        throw exception::dynamic_library_error("no function from dynamic library "
+                                               "(function: {}, path: {})",
+                                               name,
+                                               m_path);
     }
 
     /**

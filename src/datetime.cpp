@@ -1,6 +1,6 @@
 #include <iomanip>
 #include <mi/datetime.hpp>
-#include <mi/datetime_exception.hpp>
+#include <mi/datetime_error.hpp>
 #include <regex>
 
 using namespace mi;
@@ -50,7 +50,7 @@ mi::now_datetime(std::ostream &stream, std::string_view fmt)
 {
     if (!is_valid_format(fmt))
     {
-        throw datetime_exception("invalid datetime format (format: {})", fmt);
+        throw exception::datetime_error("invalid datetime format (format: {})", fmt);
     }
 
     auto now  = std::chrono::system_clock::now();

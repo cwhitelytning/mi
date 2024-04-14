@@ -35,7 +35,7 @@ dynamic_library::sym(std::string_view name) const
 {
     if (is_unloaded())
     {
-        throw dynamic_library_exception(
+        throw exception::dynamic_library_error(
             "failed to get symbol, dynamic library is not loaded "
             "(symbol: {}, path: {})",
             name,
@@ -49,15 +49,15 @@ dynamic_library::load()
 {
     if (!fs::is_readable(m_path))
     {
-        throw dynamic_library_exception("no read access (path: {})", m_path);
+        throw exception::dynamic_library_error("no read access (path: {})", m_path);
     }
     else if (path().extension() != os::DYNAMIC_LIBRARY_EXTENSION)
     {
-        throw dynamic_library_exception("invalid extension (path: {})", m_path);
+        throw exception::dynamic_library_error("invalid extension (path: {})", m_path);
     }
     else if (is_loaded())
     {
-        throw dynamic_library_exception("already loaded (path: {})", m_path);
+        throw exception::dynamic_library_error("already loaded (path: {})", m_path);
     }
 
 #ifdef MI_OS_UNIX_LIKE
@@ -68,7 +68,7 @@ dynamic_library::load()
 
     if (is_unloaded())
     {
-        throw dynamic_library_exception(last_error_message());
+        throw exception::dynamic_library_error(last_error_message());
     }
 }
 
@@ -90,7 +90,7 @@ dynamic_library::unload()
 
     if (is_loaded())
     {
-        throw dynamic_library_exception(last_error_message());
+        throw exception::dynamic_library_error(last_error_message());
     }
 }
 

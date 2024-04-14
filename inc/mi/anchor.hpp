@@ -7,7 +7,7 @@
 #define MI_ANCHOR_HPP
 
 #include "builtin.hpp"
-#include "null_pointer_exception.hpp"
+#include "null_pointer_error.hpp"
 #include "type_aliases.hpp"
 
 namespace mi
@@ -122,7 +122,7 @@ public:
         {
             return *ptr();
         }
-        throw null_pointer_exception("reference is not engaged");
+        throw exception::null_pointer_error("reference is not engaged");
     }
 
     /**

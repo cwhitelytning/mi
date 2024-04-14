@@ -12,7 +12,7 @@
 #define MI_CONTAINER_HPP
 
 #include "container_iterator.hpp"
-#include "out_of_range_exception.hpp"
+#include "range_error.hpp"
 #include "type_aliases.hpp"
 #include <memory>
 #include <vector>
@@ -541,7 +541,7 @@ public:
         {
             return at_unsafe(index);
         }
-        throw out_of_range_exception("index is out of range (index: {})", index);
+        throw range_error("index is out of range (index: {})", index);
     }
 
     /**
@@ -569,7 +569,7 @@ public:
         {
             return at_unsafe(index);
         }
-        throw out_of_range_exception("index is out of range (index: {})", index);
+        throw range_error("index is out of range (index: {})", index);
     }
 
     /**
