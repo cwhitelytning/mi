@@ -7,13 +7,21 @@ dynamic_module::load()
 {
 
     dynamic_library::load();
-    try_call<void(dynamic_module &)>("on_module_load", {}, *this);
+    exception::invoke_noexcept(
+        [this]()
+        {
+            this->call<void(dynamic_module &)>("on_module_load", *this);
+        });
 }
 
 void
 dynamic_module::unload()
 {
-    try_call<void(dynamic_module &)>("on_module_unload", {}, *this);
+    exception::invoke_noexcept(
+        [this]()
+        {
+            this->call<void(dynamic_module &)>("on_module_unload", *this);
+        });
     dynamic_library::unload();
 }
 

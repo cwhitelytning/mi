@@ -10,7 +10,7 @@
 
 #include "builtin.hpp"
 #include "dynamic_library_exception.hpp"
-#include "exception_handler.hpp"
+#include "exception.hpp"
 #include "fs.hpp"
 #include "noncopyable.hpp"
 #include "nonmovable.hpp"
@@ -149,63 +149,6 @@ public:
     }
 
     /**
-     * @brief Attempts to call a specified function with the provided arguments,
-     *        handling any exceptions.
-     *
-     * This templated function attempts to call a function identified
-     * by a given name using the provided arguments.
-     *
-     * If the function throws an exception, the provided callback is invoked with the
-     * exception. If the function's return type is not void and an exception is caught,
-     * a default-constructed return value is returned.
-     *
-     * @tparam FunctionType The type of the function to be called.
-     * @tparam Args The types of the arguments to be passed to the function.
-     * @param name A string view representing the name of the function,
-     *             used for identification.
-     *
-     * @param callback A function callback that is called
-     *                 with the exception if one is caught.
-     *
-     * @param args Variadic template arguments
-     *             that are perfectly forwarded to the function call.
-     *
-     * @return The result of invoking the function of type FunctionType
-     *         with the arguments Args...
-     *
-     *         If an exception is caught and the return type is not void,
-     *         a default-constructed object of the return type is returned.
-     *
-     * @note This function is marked noexcept and will not throw exceptions.
-     *       It ensures that any exceptions are handled via the provided callback
-     *       and that a safe, default value is returned if the return type is not void.
-     */
-    template <typename FunctionType, typename... Args>
-    std::invoke_result_t<FunctionType, Args...>
-    try_call(std::string_view           name,
-             const exception_handler_t &callback,
-             Args &&...args) noexcept
-    {
-        try
-        {
-            return call<FunctionType>(name, std::forward<Args>(args)...);
-        }
-        catch (const std::exception &exception)
-        {
-            if (callback)
-            {
-                callback(exception);
-            }
-
-            using return_type = std::invoke_result_t<FunctionType, Args...>;
-            if constexpr (!std::is_void_v<return_type>)
-            {
-                return return_type{};
-            }
-        }
-    }
-
-    /**
      * @brief Loads the dynamic library into memory.
      *
      * Attempts to load the dynamic library file specified by the path set in
@@ -218,29 +161,11 @@ public:
      * @throws dynamic_library_exception if the file is not readable, has an invalid
      *                                   extension, or is already loaded.
      *
-     * @note This method is platform-dependent and uses different APIs to load the
-     *       library on UNIX-like systems and Windows.
+     * @note This method is platform-dependent and uses different APIs
+     *       to load the library on UNIX-like systems and Windows.
      */
     virtual void
     load();
-
-    /**
-     * @brief Loads the dynamic library with an exception handling callback.
-     *
-     * Tries to load the dynamic library and catches any std::exception thrown during
-     * the process. If an exception is caught and a valid callback is provided,
-     * it calls the callback with the caught exception.
-     *
-     * @param callback A std::function callback that takes a const
-     *                 std::exception reference and returns a boolean.
-     *
-     *                 It's called if an exception occurs during
-     *                 the load process.
-     *
-     * @note This method does not throw exceptions and is marked noexcept.
-     */
-    void
-    load(const exception_handler_t &callback) noexcept;
 
     /**
      * @brief Unloads the dynamic library from memory.
@@ -257,24 +182,6 @@ public:
      */
     virtual void
     unload();
-
-    /**
-     * @brief Unloads the dynamic library with an exception handling callback.
-     *
-     * Tries to unload the dynamic library and catches any std::exception thrown during
-     * the process. If an exception is caught and a valid callback is provided,
-     * it calls the callback with the caught exception.
-     *
-     * @param callback A std::function callback that takes a const
-     *                 std::exception reference and returns a boolean.
-     *
-     *                 It's called if an exception occurs during
-     *                 the unload process.
-     *
-     * @note This method does not throw exceptions and is marked noexcept.
-     */
-    void
-    unload(const exception_handler_t &callback) noexcept;
 
     /**
      * @brief Construct a new dynamic library object.

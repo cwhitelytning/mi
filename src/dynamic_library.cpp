@@ -73,22 +73,6 @@ dynamic_library::load()
 }
 
 void
-dynamic_library::load(const exception_handler_t &callback) noexcept
-{
-    try
-    {
-        load();
-    }
-    catch (const std::exception &exception)
-    {
-        if (callback)
-        {
-            callback(exception);
-        }
-    }
-}
-
-void
 dynamic_library::unload()
 {
     if (is_loaded())
@@ -110,22 +94,6 @@ dynamic_library::unload()
     }
 }
 
-void
-dynamic_library::unload(const exception_handler_t &callback) noexcept
-{
-    try
-    {
-        unload();
-    }
-    catch (const std::exception &exception)
-    {
-        if (callback)
-        {
-            callback(exception);
-        }
-    }
-}
-
 dynamic_library::dynamic_library(fs::path_t path)
     : m_path(std::move(path)),
       m_handle(nullptr)
@@ -134,7 +102,7 @@ dynamic_library::dynamic_library(fs::path_t path)
 
 dynamic_library::~dynamic_library()
 {
-    unload({});
+    exception::invoke_noexcept(&dynamic_library::unload, this);
 }
 
 std::string
