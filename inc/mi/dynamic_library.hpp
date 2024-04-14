@@ -154,12 +154,10 @@ public:
      * Attempts to load the dynamic library file specified by the path set in
      * the dynamic_library instance. It checks for readability of the file,
      * correct file extension, and whether the library is already loaded.
+     * If any of these checks fail, a dynamic_library_error is thrown.
      *
-     * If any of these checks fail,
-     * a dynamic_library_exception is thrown.
-     *
-     * @throws dynamic_library_exception if the file is not readable, has an invalid
-     *                                   extension, or is already loaded.
+     * @throws dynamic_library_error if the file is not readable,
+     *                               has an invalid extension, or is already loaded.
      *
      * @note This method is platform-dependent and uses different APIs
      *       to load the library on UNIX-like systems and Windows.
@@ -174,9 +172,9 @@ public:
      * that is currently loaded into memory.
      *
      * If the library is loaded, it uses platform-specific API to unload it.
-     * If the unloading process fails, a dynamic_library_exception is thrown.
+     * If the unloading process fails, a dynamic_library_error is thrown.
      *
-     * @throws dynamic_library_exception if the library could not be unloaded.
+     * @throws dynamic_library_error if the library could not be unloaded.
      * @note This method is platform-dependent and uses dlclose on UNIX-like systems
      *       and FreeLibrary on Windows to unload the dynamic library.
      */

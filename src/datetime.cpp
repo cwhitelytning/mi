@@ -4,10 +4,11 @@
 #include <regex>
 
 using namespace mi;
+using namespace mi::datetime;
 
 template <typename Clock, typename Duration>
 timestamp_t
-mi::extract_milliseconds(std::chrono::time_point<Clock, Duration> point)
+datetime::extract_milliseconds(std::chrono::time_point<Clock, Duration> point)
 {
     using namespace std::chrono;
 
@@ -28,13 +29,13 @@ mi::extract_milliseconds(std::chrono::time_point<Clock, Duration> point)
 }
 
 timestamp_t
-mi::now_milliseconds()
+datetime::now_milliseconds()
 {
     return extract_milliseconds(std::chrono::system_clock::now());
 }
 
 bool
-mi::is_valid_format(std::string_view format)
+datetime::is_valid_format(std::string_view format)
 {
 #ifdef MI_SUPPORT_MILLISECONDS
     uregex pattern(USTRING("(%[YmdHMStRLFS]+|[^%]+)+"));
@@ -46,7 +47,7 @@ mi::is_valid_format(std::string_view format)
 }
 
 void
-mi::now_datetime(std::ostream &stream, std::string_view fmt)
+datetime::now_datetime(std::ostream &stream, std::string_view fmt)
 {
     if (!is_valid_format(fmt))
     {
@@ -86,7 +87,7 @@ mi::now_datetime(std::ostream &stream, std::string_view fmt)
 }
 
 std::string
-mi::now_datetime(std::string_view fmt)
+datetime::now_datetime(std::string_view fmt)
 {
     uostringstream oss;
     now_datetime(oss, fmt);

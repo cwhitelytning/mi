@@ -73,12 +73,12 @@ public:
      * @return A constant reference to a module_info instance,
      *         representing the module's information.
      *
-     * @throw dynamic_library_exception If the dynamic library is not loaded or the
-     *                                  on_module_info function is not found within
-     *                                  the library.
+     * @throw dynamic_library_error If the dynamic library is not loaded or the
+     *                              on_module_info function is not found within
+     *                              the library.
      *
-     *                                  These exceptions are propagated
-     *                                  from the call function.
+     *                              These exceptions are propagated
+     *                              from the call function.
      *
      * @see call for more details on how functions
      *           are dynamically called within the library.

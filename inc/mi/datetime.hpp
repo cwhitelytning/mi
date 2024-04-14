@@ -1,11 +1,37 @@
-#ifndef MI_INC_MI_DATETIME_HPP
-#define MI_INC_MI_DATETIME_HPP
+/**
+ * @file datetime.hpp
+ * @brief Provides the data types and constants
+ *        for date and time operations in the MI library.
+ *
+ * This file is part of the MI library's datetime module. It defines types and constants
+ * for handling date and time values, facilitating the representation and conversion of
+ * time units. The provided types and constants allow for clear and concise time-related
+ * calculations and operations.
+ *
+ * Dependencies:
+ * - "unicode.hpp" for unicode support within date and time operations.
+ * - <chrono> for standard C++ time utilities.
+ * - <ctime> for traditional C-style time/date utilities.
+ *
+ * The file defines several constants for time unit conversions,
+ * such as the number of milliseconds in a second,
+ * the number of minutes in an hour, and so on.
+ *
+ * These constants are essential for performing accurate time calculations
+ * and are used throughout the MI library wherever such calculations are necessary.
+ *
+ * Additionally, a timestamp type is defined to abstract the underlying representation
+ * of time points and durations, allowing for flexibility in potential changes
+ * to the precision or range of time values handled by the library.
+ */
+#ifndef MI_DATETIME_HPP
+#define MI_DATETIME_HPP
 
 #include "unicode.hpp"
 #include <chrono>
 #include <ctime>
 
-namespace mi
+namespace mi::datetime
 {
 
 /**
@@ -244,6 +270,6 @@ now_datetime(std::ostream &stream, std::string_view fmt);
 std::string
 now_datetime(std::string_view fmt);
 
-} // namespace mi
+} // namespace mi::datetime
 
-#endif /* MI_INC_MI_DATETIME_HPP */
+#endif /* MI_DATETIME_HPP */

@@ -525,14 +525,14 @@ public:
      * by checking if the specified index is within the bounds of the container.
      *
      * If the index is valid, it returns a reference to the element at that index.
-     * If the index is out of bounds, it throws an out_of_range_exception.
+     * If the index is out of bounds, it throws an range_error.
      *
      * This function is constexpr, meaning it can be evaluated
      * at compile time if the index is a compile-time constant.
      *
      * @param index The index of the element to access.
      * @return A reference to the element at the specified index in the container.
-     * @throws out_of_range_exception if the index is out of bounds.
+     * @throws range_error if the index is out of bounds.
      */
     constexpr reference
     at(size_type index)
@@ -541,7 +541,7 @@ public:
         {
             return at_unsafe(index);
         }
-        throw range_error("index is out of range (index: {})", index);
+        throw exception::range_error("index is out of range (index: {})", index);
     }
 
     /**
@@ -553,14 +553,14 @@ public:
      * checking if the specified index is within the bounds of the container.
      *
      * If the index is valid, it returns a const reference to the element at that index.
-     * If the index is out of bounds, it throws an out_of_range_exception.
+     * If the index is out of bounds, it throws an out_of_range_error.
      *
      * This function is constexpr, meaning it can be evaluated
      * at compile time if the index is a compile-time constant.
      *
      * @param index The index of the element to access.
      * @return A const reference to the element at the specified index in the container.
-     * @throws out_of_range_exception if the index is out of bounds.
+     * @throws range_error if the index is out of bounds.
      */
     constexpr const_reference
     at(size_type index) const
@@ -569,7 +569,7 @@ public:
         {
             return at_unsafe(index);
         }
-        throw range_error("index is out of range (index: {})", index);
+        throw exception::range_error("index is out of range (index: {})", index);
     }
 
     /**

@@ -182,10 +182,10 @@ protected:
      *
      * This function verifies whether the element at the given index in the container
      * has been assigned a value. If no value has been assigned,
-     * it throws a null_pointer_exception.
+     * it throws a null_pointer_error.
      *
      * @param index The index of the element to check.
-     * @throws null_pointer_exception if the element at the specified index
+     * @throws null_pointer_error if the element at the specified index
      *                                has no assigned value.
      */
     constexpr void
@@ -208,7 +208,7 @@ public:
      *
      * @param index The index of the element to retrieve.
      * @return A reference to the element at the specified index.
-     * @throws null_pointer_exception if no value is assigned at the specified index.
+     * @throws null_pointer_error if no value is assigned at the specified index.
      */
     constexpr element_reference
     get(size_type index)
@@ -229,7 +229,7 @@ public:
      *
      * @param index The index of the element to retrieve.
      * @return A const reference to the element at the specified index.
-     * @throws null_pointer_exception if no value is assigned at the specified index.
+     * @throws null_pointer_error if no value is assigned at the specified index.
      */
     constexpr element_const_reference
     get(size_type index) const

@@ -11,7 +11,7 @@ console_logger::log(const extension &sender, logger_level level, ustring_view me
     {
         format::interpolate_stream(uclog,
                                    std::string_view("L {}\t[{}]\t{}\t{}"),
-                                   now_datetime("%Y.%m.%d %H:%M:%S"),
+                                   datetime::now_datetime("%Y.%m.%d %H:%M:%S"),
                                    sender.classname(),
                                    logger_level_to_string(level),
                                    message);
